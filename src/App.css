@@ -3,12 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-.app_headerImage {
+.app_header{
+  background-color: #fafafa;
+  padding: 20px;
   object-fit: contain;
-  background-color: white;
+  border-bottom: 1px solid lightgray;
 }
-
 .app {
   background-color: #fafafa;
+  height: 100vh;
 }
