@@ -13,3 +13,8 @@
   background-color: #fafafa;
   height: 100vh;
 }
+.app_signup{
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
