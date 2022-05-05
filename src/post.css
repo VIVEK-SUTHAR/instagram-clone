@@ -1,10 +1,11 @@
-.post{
+.post {
     margin: auto;
     max-width: 500px;
     background-color: white;
     border: 1px solid lightgray;
-    margin:20px auto;
+    margin: 20px auto;
 }
+
 .post_image {
     width: 100%;
     object-fit: contain;
@@ -25,4 +26,28 @@
 
 .post_avatar {
     margin-right: 10px;
+}
+
+.commentBox {
+    display: flex;
+    margin-top: 10px;
+}
+.post_input{
+    flex: 1;
+    outline: none;
+    padding: 10px;
+    border: none;
+    border-top: 1px solid lightgray;
+}
+.post_input:focus{
+    outline: none;
+}
+.post_button{
+    flex: 0;
+    border: none;
+    padding: 5px;
+    border-top: 1px solid lightgray;
+}
+.comments{
+    padding: 20px;
 }

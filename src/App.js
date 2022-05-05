@@ -46,7 +46,7 @@ function App() {
     }
   }, [user, username]);
   useEffect(() => {
-    db.collection('posts').onSnapshot(snapshot => {
+    db.collection('posts').orderBy("timestamp", "desc").onSnapshot(snapshot => {
       setPosts(snapshot.docs.map(doc => ({
         id: doc.id,
         post: doc.data()
@@ -74,14 +74,7 @@ function App() {
   }
   return (
     <div className="App">
-      {
-        user?.displayName ? (
-          <ImageUpload username={user.displayName}/>
-        ):
-        (
-          <h3>Sorry you ned to login</h3>
-        )
-      }
+
       <div>
         <Modal
           open={open}
@@ -91,12 +84,11 @@ function App() {
         >
           <Box sx={style}>
             <form className='app_signup'>
-
               <center>
                 <img
                   className='app_headerImage'
                   src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" alt="" />
-                <Input type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Input type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}  required={true}/>
                 <Input type="text" placeholder='email' value={email} onChange={(e) => setemail(e.target.value)} />
                 <Input type="password" placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} /><br />
                 <Button type='submit' onClick={Signup}>Sign IP</Button>
@@ -132,27 +124,45 @@ function App() {
         <img
           className='app_headerImage'
           src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" alt="" />
+        <div className="appLogInContainer">
+          {
+            user ? (
+
+              <Button onClick={() => auth.signOut()}>Log Out</Button>
+            ) : (
+              <>
+                <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+                <Button onClick={() => setOpen(true)}>Sign Up</Button>
+              </>
+            )
+          }
+        </div>
       </div>
       {
         user ?
           (
             <>
-              <Button onClick={() => auth.signOut()}>Log Out</Button>
-              {
-                posts.map(({ id, post }) => (
-                  <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
-                ))
-              }
+              <div className="app_posts">
+                {
+                  posts.map(({ id, post }) => (
+                    <Post 
+                    key={id} 
+                    postId={id}
+                    user={user}
+                    username={post.username} 
+                    caption={post.caption} 
+                    imageUrl={post.imageUrl} />
+                  ))
+                }
+              </div>
             </>
           ) :
           (
-            <div className="appLogInContainer">
-              <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-              <Button onClick={() => setOpen(true)}>Sign Up</Button>
+            <div>
             </div>
           )
-
       }
+      <ImageUpload username={username} />
     </div>
   );
 }

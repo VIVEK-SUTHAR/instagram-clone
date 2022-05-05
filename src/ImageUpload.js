@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import fb from "firebase/compat/app";
 import React, { useState } from 'react';
 import { db, storage } from "./firebase";
+import "./Imageupload.css";
 function ImageUpload({ username }) {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
@@ -29,14 +30,16 @@ function ImageUpload({ username }) {
                         timestamp: fb.firestore.FieldValue.serverTimestamp(),
                         caption: caption,
                         imageUrl: url,
-                        urername: username
+                        username: username
                     })
                 })
+                setImage(null);
             }
         )
+
     }
     return (
-        <div>
+        <div className='Imageupload'>
             <progress value={progress} max="100"></progress>
             <input type="text" name="" id="" placeholder='Enter A Caption' value={caption} onChange={e => setCaption(e.target.value)} />
             <input type="file" onChange={handleChange} />
